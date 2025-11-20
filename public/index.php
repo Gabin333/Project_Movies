@@ -1,7 +1,6 @@
 <?php
 
 spl_autoload_register(function ($class) {
-
     $prefix = 'App\\';
     $base_dir = __DIR__ . '/../src/';
 
@@ -18,7 +17,6 @@ spl_autoload_register(function ($class) {
     }
 });
 
-
 require __DIR__ . '/../config/db.php';
 
 use App\Repository\MovieRepository;
@@ -29,11 +27,26 @@ $movieController = new MovieController($movieRepo);
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if ($uri === '/movie/add' || $uri === '/movie/add/') {
-    $movieController->addMovie();
-} elseif ($uri === '/' || $uri === '/index.php') {
-    echo '<h1>Accueil</h1><ul><li><a href="/movie/add">Ajouter un film</a></li></ul>';
-} else {
-    http_response_code(404);
-    echo '404 - Page non trouvée';
+// Routing simple
+switch ($uri) {
+    case '/movie/add':
+    case '/movie/add/':
+        $movieController->addMovie();
+        break;
+
+    case '/movies':
+    case '/movies/':
+        $movieController->showAllMovies();
+        break;
+
+    case '/':
+    case '/index.php':
+        // Page d'accueil décorée
+        require __DIR__ . '/../views/template_home.php';
+        break;
+
+    default:
+        http_response_code(404);
+        echo '404 - Page non trouvée';
+        break;
 }

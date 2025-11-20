@@ -25,7 +25,15 @@ class Movie
     public function setDescription(string $description): void { $this->description = $description; }
 
     public function getPublishAt(): \DateTime { return $this->publishAt; }
-    public function setPublishAt(\DateTime $publishAt): void { $this->publishAt = $publishAt; }
+    public function setPublishAt($publishAt): void {
+        if (is_string($publishAt)) {
+            $this->publishAt = new \DateTime($publishAt);
+        } elseif ($publishAt instanceof \DateTime) {
+            $this->publishAt = $publishAt;
+        } else {
+            throw new \InvalidArgumentException('publishAt must be a string or DateTime');
+        }
+    }
 
     public function getDuration(): int { return $this->duration; }
     public function setDuration(int $duration): void { $this->duration = $duration; }
@@ -34,5 +42,14 @@ class Movie
     public function setCover(string $cover): void { $this->cover = $cover; }
 
     public function getCategories(): array { return $this->categories; }
-    public function addCategory($category): void { $this->categories[] = $category; }
+    
+    public function addCategory(string $category): void { 
+        if (!in_array($category, $this->categories)) {
+            $this->categories[] = $category; 
+        }
+    }
+
+    public function setCategories(array $categories): void {
+        $this->categories = $categories;
+    }
 }

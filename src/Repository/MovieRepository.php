@@ -12,6 +12,7 @@ class MovieRepository {
         $this->connect = $connect;
     }
 
+    // 🔹 Ajouter un film
     public function saveMovie(Movie $movie): bool
     {
         $sql = "INSERT INTO movies (title, description, publish_at, duration, cover)
@@ -35,5 +36,27 @@ class MovieRepository {
         }
 
         return $result;
+    }
+
+    // 🔹 Récupérer tous les films avec leurs catégories
+    public function findAllMovies(): array
+    {
+        $sql = "
+            SELECT 
+                m.id,
+                m.title,
+                m.description,
+                m.publish_at,
+                m.duration,
+                m.cover,
+                GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+            FROM movies m
+            LEFT JOIN movie_category mc ON m.id = mc.movie_id
+            LEFT JOIN categories c ON mc.category_id = c.id
+            GROUP BY m.id
+            ORDER BY m.publish_at DESC
+        ";
+        $stmt = $this->connect->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

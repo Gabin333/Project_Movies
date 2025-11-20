@@ -9,6 +9,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Ajouter un film</h1>
 
+    <?php $messages = $messages ?? []; ?>
     <?php if (!empty($messages)): ?>
         <div class="alert alert-info">
             <ul class="mb-0">
@@ -57,6 +58,7 @@
 
         <button type="submit" class="btn btn-primary">Ajouter le film</button>
         <a href="/" class="btn btn-secondary">Retour</a>
+        <a href="/movies" class="btn btn-info ms-2">Voir tous les films</a>
     </form>
 </div>
 

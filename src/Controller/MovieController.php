@@ -12,12 +12,14 @@ class MovieController {
         $this->movieRepository = $movieRepository;
     }
 
+    // 🔹 Méthode pour inclure un template
     public function render(string $template, array $data = [])
     {
         extract($data);
         require __DIR__ . '/../../views/' . $template . '.php';
     }
 
+    // 🔹 Ajouter un film
     public function addMovie()
     {
         $messages = [];
@@ -37,7 +39,7 @@ class MovieController {
                 $movie->setDescription($description);
                 $movie->setDuration($duration);
                 $movie->setCover($cover);
-                $movie->setPublishAt(new \DateTime($publishAt));
+                $movie->setPublishAt($publishAt);
 
                 $categories = $_POST['categories'] ?? [];
                 foreach ($categories as $catId) {
@@ -54,4 +56,12 @@ class MovieController {
 
         $this->render('template_add_movie', ['messages' => $messages]);
     }
+
+    // 🔹 Afficher tous les films
+    public function showAllMovies()
+    {
+        $movies = $this->movieRepository->findAllMovies();
+        $this->render('template_all_movie', ['movies' => $movies]);
+    }
 }
+
