@@ -1,4 +1,3 @@
-
 CREATE DATABASE IF NOT EXISTS moviesdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE moviesdb;
 
@@ -25,6 +24,21 @@ CREATE TABLE IF NOT EXISTS movie_category (
     PRIMARY KEY (movie_id, category_id),
     CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
     CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS account_movie (
+    account_id INT UNSIGNED NOT NULL,
+    movie_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (account_id, movie_id),
+    CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE,
+    CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 INSERT INTO categories (name) VALUES ('Action'), ('Comédie'), ('Drame');

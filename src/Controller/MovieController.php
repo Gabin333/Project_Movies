@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Repository\MovieRepository;
 use App\Model\Movie;
+use Mithridatem\Validation\Exception\ValidationException;
 
 class MovieController
 {
@@ -21,14 +22,17 @@ class MovieController
 
     public function addMovie()
     {
+        $messages = [];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $movie = new Movie;
-            $movie->setTitle($_POST['title']);
-            $movie->setDescription($_POST['description']);
-            $movie->setPublishAt(new \DateTime($_POST['publish_at']));
-            $movie->setDuration($_POST['duration'] ?? 90);
+            $movie = new Movie();
+            $movie->setTitle(trim($_POST['title'] ?? ''));
+            $movie->setDescription(trim($_POST['description'] ?? ''));
+            $movie->setPublishAt(new \DateTime($_POST['publish_at'] ?? 'now'));
+            $movie->setDuration((int)($_POST['duration'] ?? 90));
 
+            // Gestion image
             if (!empty($_FILES['cover']['name'])) {
                 $ext = pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION);
                 $filename = uniqid() . '.' . $ext;
@@ -38,14 +42,21 @@ class MovieController
                 $movie->setCover('default.png');
             }
 
-            $this->movieRepository->saveMovie($movie);
-
-            header('Location: /movies');
-            exit;
+            // Validation
+            try {
+                $movie->validate();
+                if ($this->movieRepository->saveMovie($movie)) {
+                    $messages[] = 'Film ajouté avec succès !';
+                } else {
+                    $messages[] = 'Erreur lors de l\'ajout du film';
+                }
+            } catch (ValidationException $e) {
+                // The package throws a ValidationException with a message for the first violation.
+                // Append the message so the view can display it.
+                $messages[] = $e->getMessage();
+            }
         }
 
         require __DIR__ . '/../../views/template_add_movie.php';
     }
 }
-
-

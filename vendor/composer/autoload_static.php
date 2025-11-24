@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitbc8d7e7e242d9c3ba8b5df6c80ecf4c7
 {
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'Mithridatem\\Validation\\' => 23,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -14,6 +18,10 @@ class ComposerStaticInitbc8d7e7e242d9c3ba8b5df6c80ecf4c7
     );
 
     public static $prefixDirsPsr4 = array (
+        'Mithridatem\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mithridatem/validation/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

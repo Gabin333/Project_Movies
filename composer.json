@@ -3,5 +3,8 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "require": {
+        "mithridatem/validation": "^0.1.3"
     }
 }

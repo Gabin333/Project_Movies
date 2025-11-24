@@ -1,0 +1,62 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "553260c447a7c5fe86381034da58bd76",
+    "packages": [
+        {
+            "name": "mithridatem/validation",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evaluationWeb/validation-librairie.git",
+                "reference": "a9fde1b3cb4c3ef7b53e6735d08b8b5bd8740774"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evaluationWeb/validation-librairie/zipball/a9fde1b3cb4c3ef7b53e6735d08b8b5bd8740774",
+                "reference": "a9fde1b3cb4c3ef7b53e6735d08b8b5bd8740774",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mithridatem\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Mithridate",
+                    "email": "mathieumithridate@adrar-formation.com"
+                }
+            ],
+            "description": "Attribute-based validation components",
+            "support": {
+                "issues": "https://github.com/evaluationWeb/validation-librairie/issues",
+                "source": "https://github.com/evaluationWeb/validation-librairie/tree/v0.1.3"
+            },
+            "time": "2025-10-20T17:09:15+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
