@@ -6,6 +6,12 @@
             <h1 class="mb-3">Mon compte</h1>
             <p>Bienvenue sur la page de votre compte.</p>
 
+            <?php if (!empty($messages)): ?>
+                <?php foreach ($messages as $msg): ?>
+                    <div class="alert <?= strpos($msg, 'retir') !== false || strpos($msg, 'ajout') !== false ? 'alert-success' : 'alert-danger' ?>"><?= htmlspecialchars($msg) ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
             <h2 class="mt-4">Mes films</h2>
             <?php if (empty($movies)): ?>
                 <div class="alert alert-info">Vous n'avez pas encore ajouté de film à votre compte.</div>

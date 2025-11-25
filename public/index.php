@@ -88,6 +88,16 @@ switch ($uri) {
         $registerController->addMovieToAccount();
         break;
 
+    case '/account/movie/remove':
+    case '/account/movie/remove/':
+        $registerController->removeMovieFromAccount();
+        break;
+
+    case '/account/movies':
+    case '/account/movies/':
+        $registerController->showAllMoviesToAccount();
+        break;
+
     case '/account':
     case '/account/':
         $registerController->showAccount();
